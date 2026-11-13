@@ -27,6 +27,7 @@ import hashlib
 import json
 import re
 import subprocess
+import sys
 import time
 from pathlib import Path
 
@@ -34,7 +35,7 @@ import numpy as np
 import yaml
 
 ROOT = Path(__file__).resolve().parent
-PYTHON = r"F:\anaconda_workspace\envs\fuxian\python.exe"
+PYTHON = sys.executable
 ANSI = re.compile(r"\x1b\[[0-9;]*m")
 RE_VAL = re.compile(r"Val Loss=([\d.]+) Acc=([\d.]+) F1=([\d.]+)")
 RE_TRAIN = re.compile(r"Train Loss=([\d.]+) Acc=([\d.]+) F1=([\d.]+)")

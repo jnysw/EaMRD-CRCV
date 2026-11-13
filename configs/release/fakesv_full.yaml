@@ -1,0 +1,31 @@
+dataset: FakeSV
+feature_cache: FakeSV_FilteredEv
+type: temporal
+seed: 123
+num_epoch: 30
+batch_size: 32
+patience: 5
+use_class_weight: true
+model:
+  hidden_dim: 256
+  dropout: 0.3
+  temperature: 0.05
+  lambda_contrastive: 0.1
+  use_contrastive: true
+  contrastive_mode: in_batch
+  use_gat: true
+  use_ceca: true
+  gat_hidden: 128
+  gat_heads: 4
+  gat_dropout: 0.3
+  ceca_heads: 4
+  ceca_dropout: 0.1
+  use_claim: true
+  use_evidence: true
+  use_reasoning: true
+  use_conflict: true
+optimizer:
+  lr: 0.0001
+  weight_decay: 0.0001
+scheduler:
+  warmup_rate: 0.05

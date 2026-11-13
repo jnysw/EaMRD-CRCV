@@ -1,0 +1,28 @@
+# E0 + E1: honest multi-seed baseline and InfoNCE / missing-evidence fixes.
+# Run with:  python run_protocol.py --exp configs/experiments/e1_infonce.yaml
+#
+# Protocol (reports/04_candidate_experiments.md):
+#   - seeds are pre-registered below and locked on first run (protocol_lock.json);
+#   - variants are ranked by mean VALIDATION acc; test is reported once, never used to select;
+#   - every variant is compared to `reference` with per-seed paired differences.
+
+name: e1_infonce
+seeds: [123, 130, 456, 728, 2024]
+reference: full
+
+base_configs:
+  FakeSV: configs/fakesv_v2/best.yaml
+  FakeTT: configs/fakett_v2/full.yaml
+
+# Overrides use dotted keys into the base config; {} = official Full unchanged.
+variants:
+  full: {}                                          # E0a / E1a
+  e1b_mask: {model.contrastive_valid_mask: true}    # InfoNCE only on samples with support evidence
+  e1b_gat: {model.gat_keep_self_loop: true}         # no all-zero pc from attention dropout
+  e1b_ceca: {model.ceca_mask_padding: true}         # padding evidence rows excluded from CECA
+  e1b_all:                                          # all three bug fixes together
+    model.contrastive_valid_mask: true
+    model.gat_keep_self_loop: true
+    model.ceca_mask_padding: true
+  e1c_lambda0: {model.lambda_contrastive: 0.0}      # no contrastive loss
+  e1d_lambda_half: {model.lambda_contrastive: 0.05} # lambda halved

@@ -1,0 +1,22 @@
+# EaMRD-CRCV Default Config — FakeSV temporal split
+dataset: FakeSV
+type: temporal        # "temporal" | "5-fold"
+seed: 2024
+num_epoch: 30
+batch_size: 32
+patience: 5
+
+model:
+  hidden_dim: 512
+  dropout: 0.3
+  temperature: 0.07         # InfoNCE τ，候选: 0.05 / 0.07 / 0.1
+  lambda_contrastive: 0.1   # 候选: 0.05 / 0.1 / 0.2
+  use_contrastive: true
+  contrastive_mode: in_batch  # "in_batch" | "hard_neg"
+
+optimizer:
+  lr: 2.0e-5
+  weight_decay: 1.0e-4
+
+scheduler:
+  warmup_rate: 0.05         # 5% of total steps for linear warmup
